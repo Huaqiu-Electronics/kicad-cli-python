@@ -13,7 +13,7 @@ def get_local_ip():
         return str(local_ip)
     except Exception as e:
         print("Error:", e)
-        return None
+        return "127.0.0.1"
 
 # Get and print the local IP address
 local_ip = get_local_ip()
