@@ -51,38 +51,48 @@ def export_net_list(root_sch_file_name):
     except Exception as e:
         logging.error(e)
 
-    # c_output_file_name = str(uuid.uuid4()) + ".glb"
-    # c_docker_output_fn = os.path.join(mounted_prj_path, c_output_file_name).replace("\\", "/")
+#
+def export_net_list_local(root_sch_file_name):
+    kicad_project_dir = os.path.dirname(root_sch_file_name)
+    pcb_name = os.path.basename(root_sch_file_name)
+    output_file_name = kicad_project_dir + "/" + pcb_name + ".xml"
+    first_cmd = [
+        "kicad-cli", "sch",
+        "export", "netlist", "--format", "kicadxml",
+        root_sch_file_name, "-o",
+        output_file_name
+    ]
 
-    # second_cmd = ["docker", "run", "-v", f"{kicad_project_dir}:{mounted_prj_path}",
-    #               KICAD_IMAGE_ID, "npx", "gltfpack",
-    #               "-i",
-    #               docker_output_fn, "-v", "-cc", "-tc", "-ts", "0.5", "-o",
-    #               c_docker_output_fn
-    #               ]
+    print(" ".join(first_cmd))
 
-    # print(" ".join(second_cmd))
+    try:
+        process_export = subprocess.Popen(first_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        _, stderr = process_export.communicate()
+        if stderr:
+            logging.error(stderr.decode())
+    except Exception as e:
+        logging.error(e)
 
-    # try:
-    #     process_pack = subprocess.Popen(second_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    #     _, stderr = process_pack.communicate()
-    #     if stderr:
-    #         logging.error(stderr.decode())
-    # except Exception as e:
-    #     logging.error(e)
-
-    # try:
-    #     process_pack.wait()
-    # except Exception as e:
-    #     logging.error(e)
-
-    # return os.path.join(kicad_project_dir, c_output_file_name).replace("\\", "/")
-
+    try:
+        process_export.wait()
+    except Exception as e:
+        logging.error(e)
 
 def main():
     import time
 
-    export_net_list(r"D:/code/kicad-cli-python/pal-ntsc.kicad_sch")
+    target_dir = "D:/pcb_projects/issues/amulet_controller"
+    # Literate the dir tree find all the sch files
+
+    for root, dirs, files in os.walk(target_dir):
+        for file in files:
+            if file.endswith(".kicad_sch"):
+                print(os.path.join(root, file))
+                export_net_list_local(os.path.join(root, file))
+                time.sleep(1)
+
+
+    # export_net_list(r"D:/code/kicad-cli-python/pal-ntsc.kicad_sch")
 
 
 
