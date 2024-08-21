@@ -43,49 +43,13 @@ def export_glb(root_sch_file_name):
     except Exception as e:
         logging.error(e)
 
-
-    print(f"Convert to glb Time taken: {time.time() - start_time} secs")
-
-    c_output_file_name = str(uuid.uuid4()) + ".glb"
-    c_docker_output_fn = os.path.join(mounted_prj_path, c_output_file_name).replace("\\", "/")
-
-    second_cmd = ["docker", "run", "--rm", "-v", f"{kicad_project_dir}:{mounted_prj_path}",
-                  KICAD_FULL_IMAGE_ID, "npx", "gltfpack",
-                  "-i",
-                  docker_output_fn, "-v", "-cc", "-tc", "-ts", "0.5", "-o",
-                  c_docker_output_fn
-                  ]
-
-    print(" ".join(second_cmd))
-
-    start_time = time.time()
-
-    try:
-        process_pack = subprocess.Popen(second_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        _, stderr = process_pack.communicate()
-        if stderr:
-            logging.error(stderr.decode())
-    except Exception as e:
-        logging.error(e)
-
-    try:
-        process_pack.wait()
-    except Exception as e:
-        logging.error(e)
-
-    print(f"Compress glb {time.time() - start_time} secs")
-
     print(f"PCB to glb  Time taken: {time.time() - enter_time} secs")
-
-
-    return os.path.join(kicad_project_dir, c_output_file_name).replace("\\", "/")
+    return os.path.join(kicad_project_dir, output_file_name).replace("\\", "/")
 
 
 def main():
     export_glb("D:/pcb_projects/Altium/large/MiniPC.kicad_pcb")
     export_glb("D:/code/kicad/build/out/video/video.kicad_pcb")
-
-
 
 
 if __name__ == "__main__":
