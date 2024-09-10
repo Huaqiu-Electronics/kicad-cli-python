@@ -49,7 +49,7 @@ def export_glb(root_sch_file_name):
 
 def main():
     export_glb("D:/pcb_projects/Altium/large/MiniPC.kicad_pcb")
-    export_glb("D:/code/kicad/build/out/video/video.kicad_pcb")
+    export_glb("D:/code/kicad/build/out/share/kicad/demos/video/video.kicad_pcb")
 
 
 if __name__ == "__main__":
