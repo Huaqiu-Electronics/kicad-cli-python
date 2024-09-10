@@ -8,7 +8,7 @@ from utils import KICAD_FULL_IMAGE_ID
 
 
 kicad_img_home_path ="/home/kicad"
-
+# kicad-cli pcb export glb --subst-models --include-tracks --include-pads --include-zones  --include-silkscreen  .\complex_hierarchy.kicad_pcb -o .\complex_hierarchy.glb
 def export_glb(root_sch_file_name):
     enter_time = time.time()
 
