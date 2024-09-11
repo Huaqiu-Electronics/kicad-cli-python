@@ -22,8 +22,16 @@ def export_glb(root_sch_file_name):
     first_cmd = ["docker", "run", "--rm",
                  "-v", f"{kicad_project_dir}:{mounted_prj_path}",
                  KICAD_FULL_IMAGE_ID, "kicad-cli", "pcb",
-                 "export", "glb", "--subst-models", "--include-soldermask","--include-tracks","--include-pads" , "--include-zones","--include-silkscreen",
-                 mouted_pcb_fp, "-o",
+                 "export", 
+                 "glb", 
+                 "--subst-models",
+                 "--include-tracks", 
+                 "--include-soldermask", 
+                 "--include-pads", 
+                 "--include-zones",
+                 "--include-silkscreen",
+                 mouted_pcb_fp, 
+                 "-o",
                  docker_output_fn
                  ]
     print(" ".join(first_cmd))
