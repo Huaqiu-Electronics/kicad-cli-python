@@ -22,7 +22,7 @@ def export_glb(root_sch_file_name):
     first_cmd = ["docker", "run", "--rm",
                  "-v", f"{kicad_project_dir}:{mounted_prj_path}",
                  KICAD_FULL_IMAGE_ID, "kicad-cli", "pcb",
-                 "export", "glb", "--subst-models", "--include-tracks","--include-pads" , "--include-zones", "--include-silkscreen",
+                 "export", "glb", "--subst-models", "--include-tracks","--include-pads" , "--include-silkscreen",
                  mouted_pcb_fp, "-o",
                  docker_output_fn
                  ]
@@ -48,8 +48,11 @@ def export_glb(root_sch_file_name):
 
 
 def main():
-    export_glb("D:/pcb_projects/Altium/large/MiniPC.kicad_pcb")
-    export_glb("D:/code/kicad/build/out/share/kicad/demos/video/video.kicad_pcb")
+    # export_glb("D:/pcb_projects/Altium/large/MiniPC.kicad_pcb")
+    # D:\pcb_projects\StepperServoCAN\hardware\PCB
+    export_glb("D:/pcb_projects/StepperServoCAN/hardware/PCB/StepperServoCAN.kicad_pcb")
+    # export_glb("D:/code/kicad/build/out/share/kicad/demos/video/video.kicad_pcb")
+    # npx gltfpack -v -cc -tc -ts 0.5 -i 215cfeae-450f-4097-a2a6-0e423ca5b6a4.glb -o a.glb
 
 
 if __name__ == "__main__":
