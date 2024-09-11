@@ -44,7 +44,43 @@ def export_glb(root_sch_file_name):
         logging.error(e)
 
     print(f"PCB to glb  Time taken: {time.time() - enter_time} secs")
-    return os.path.join(kicad_project_dir, output_file_name).replace("\\", "/")
+
+
+
+    c_output_file_name = str(uuid.uuid4()) + ".glb"
+    c_docker_output_fn = os.path.join(mounted_prj_path, c_output_file_name).replace("\\", "/")
+
+    second_cmd = ["docker", "run", "--rm", "-v", f"{kicad_project_dir}:{mounted_prj_path}",
+                  KICAD_FULL_IMAGE_ID, "gltfpack",
+                  "-i",
+                  docker_output_fn, "-v", "-cc", "-tc", "-ts", "0.5", "-o",
+                  c_docker_output_fn
+                  ]
+
+    print(" ".join(second_cmd))
+
+    start_time = time.time()
+
+    try:
+        process_pack = subprocess.Popen(second_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        _, stderr = process_pack.communicate()
+        if stderr:
+            logging.error(stderr.decode())
+    except Exception as e:
+        logging.error(e)
+
+    try:
+        process_pack.wait()
+    except Exception as e:
+        logging.error(e)
+
+    print(f"Compress glb {time.time() - start_time} secs")
+
+    print(f"PCB to glb  Time taken: {time.time() - enter_time} secs")
+
+
+
+    return os.path.join(kicad_project_dir, c_output_file_name).replace("\\", "/")
 
 
 def main():
