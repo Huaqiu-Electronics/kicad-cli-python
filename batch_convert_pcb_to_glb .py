@@ -7,7 +7,7 @@ import zipfile
 import shutil
 import sys
 
-from utils import KICAD_FULL_IMAGE_ID
+from utils import KICAD_LITE_IMAGE_ID
 
 kicad_img_home_path = "/home/kicad"
 archive_dir = "D:/achieves"
@@ -24,7 +24,7 @@ def export_glb(root_sch_file_name):
     first_cmd = [
         "docker", "run", "--rm",
         "-v", f"{kicad_project_dir}:{mounted_prj_path}",
-        KICAD_FULL_IMAGE_ID, "kicad-cli", "pcb",
+        KICAD_LITE_IMAGE_ID, "kicad-cli", "pcb",
         "export", "glb", "--subst-models", "--include-tracks",
         mounted_pcb_fp, "-o", docker_output_fn
     ]

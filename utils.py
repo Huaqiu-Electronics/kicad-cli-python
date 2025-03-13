@@ -1,6 +1,8 @@
 import os
 
 KICAD_FULL_IMAGE_ID = "registry.cn-shanghai.aliyuncs.com/kicad/kicad:full"
+KICAD_LITE_IMAGE_ID = "registry.cn-shanghai.aliyuncs.com/kicad/kicad:lite"
+
 FILE_SRV_PORT = 7676
 
 OUT_DIR_NAME = "out"

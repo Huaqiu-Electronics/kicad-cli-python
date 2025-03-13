@@ -3,7 +3,7 @@ import subprocess
 import uuid
 import logging
 
-from utils import KICAD_FULL_IMAGE_ID
+from utils import KICAD_LITE_IMAGE_ID
 
 kicad_img_home_path ="/home/kicad"
 
@@ -29,7 +29,7 @@ def export_net_list(root_sch_file_name):
     first_cmd = [
         "docker", "run", "--rm",
         "-v", f"{kicad_project_dir}:{mounted_prj_path}",
-        KICAD_FULL_IMAGE_ID,
+        KICAD_LITE_IMAGE_ID,
         "kicad-cli", "sch",
         "export", "netlist", "--format", "kicadxml",
         mounted_pcb_fp, "-o",
@@ -69,8 +69,10 @@ def export_net_list_local(root_sch_file_name):
         process_export = subprocess.Popen(first_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _, stderr = process_export.communicate()
         if stderr:
+            logging.info("stderr:")
             logging.error(stderr.decode())
     except Exception as e:
+        logging.info("Exception:")
         logging.error(e)
 
     try:
@@ -81,18 +83,18 @@ def export_net_list_local(root_sch_file_name):
 def main():
     import time
 
-    target_dir = "D:/pcb_projects/issues/amulet_controller"
-    # Literate the dir tree find all the sch files
+    # target_dir = "D:/code/kicad-cli-python/video"
+    # # Literate the dir tree find all the sch files
 
-    for root, dirs, files in os.walk(target_dir):
-        for file in files:
-            if file.endswith(".kicad_sch"):
-                print(os.path.join(root, file))
-                export_net_list_local(os.path.join(root, file))
-                time.sleep(1)
+    # for root, dirs, files in os.walk(target_dir):
+    #     for file in files:
+    #         if file.endswith(".kicad_sch"):
+    #             print(os.path.join(root, file))
+    #             export_net_list_local(os.path.join(root, file))
+    #             time.sleep(1)
 
 
-    # export_net_list(r"D:/code/kicad-cli-python/pal-ntsc.kicad_sch")
+    export_net_list(r"D:/code/kicad-cli-python/video/video.kicad_sch")
 
 
 
