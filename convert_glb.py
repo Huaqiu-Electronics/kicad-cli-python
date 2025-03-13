@@ -94,7 +94,7 @@ def export_glb(root_sch_file_name):
 def main():
     # export_glb("D:/pcb_projects/Altium/large/MiniPC.kicad_pcb")
     # D:\pcb_projects\StepperServoCAN\hardware\PCB
-    export_glb("D:/pcb_projects/StepperServoCAN/hardware/PCB/StepperServoCAN.kicad_pcb")
+    export_glb("D:/code/kicad-cli-python/video/video.kicad_pcb")
     # export_glb("D:/code/kicad/build/out/share/kicad/demos/video/video.kicad_pcb")
     # npx gltfpack -v -cc -tc -ts 0.5 -i 215cfeae-450f-4097-a2a6-0e423ca5b6a4.glb -o a.glb
 
