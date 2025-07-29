@@ -94,8 +94,10 @@ def main():
     #             time.sleep(1)
 
 
-    export_net_list(r"D:/code/kicad-cli-python/video/video.kicad_sch")
-
+    # export_net_list(r"D:/code/kicad-cli-python/video/video.kicad_sch")
+    # D:\code\kicad-cli-python\pic\pic_programmer.kicad_sch
+    export_net_list_local(r"D:\code\kicad-cli-python\pic\pic_sockets.kicad_sch")
+    export_net_list(r"D:\code\kicad-cli-python\pic\pic_sockets.kicad_sch")
 
 
 if __name__ == "__main__":
