@@ -1,9 +1,3 @@
 __pycache__
+tests/out
 *.glb
-*.kicad_pcb
-*.js
-*.tar
-*.PcbDoc
-*.SchDoc
-out
-collections
